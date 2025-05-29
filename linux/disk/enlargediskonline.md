@@ -40,7 +40,6 @@ Expandir o disco da VM de **30GB para 50GB** com a máquina ligada, sem causar i
 - Ferramentas instaladas:
   - `parted`
   - `resize2fs` (disponível no pacote `e2fsprogs`)
-- Backup (recomendado)
 
 ---
 
@@ -55,7 +54,7 @@ Expanda o disco da VM no seu hipervisor (Proxmox, VMware, etc.) de **30GB para 5
 Execute o comando abaixo na VM para forçar a revarredura do disco:
 
 ```bash
-echo 1 > /sys/class/block/sda/device/rescan
+$ echo 1 > /sys/class/block/sda/device/rescan
 ```
 
 ### 3. Redimensionar a partição com `parted`
@@ -63,13 +62,13 @@ echo 1 > /sys/class/block/sda/device/rescan
 Inicie a ferramenta:
 
 ```bash
-parted /dev/sda
+$ parted /dev/sda
 ```
 
 No shell do `parted`, veja o espaço livre:
 
 ```bash
-(parted) unit MB print free
+(parted) unit mb print free
 ```
 
 Se o `parted` exibir um aviso dizendo que nem todo o espaço está sendo usado, digite:
@@ -78,12 +77,12 @@ Se o `parted` exibir um aviso dizendo que nem todo o espaço está sendo usado, 
 Fix
 ```
 
-Agora, redimensione a partição existente (geralmente a `2`):
+Agora, redimensione a partição existente (no nosso caso a 2):
 
 ```bash
 (parted) resizepart
 Partition number? 2
-End? [digite o valor final do disco, como 50000MB ou 50GB]
+End? [digite o valor final do disco, como 50000MB]
 ```
 
 Confirme os avisos com `Yes`, se solicitado, e saia:
@@ -97,7 +96,7 @@ Confirme os avisos com `Yes`, se solicitado, e saia:
 Execute o comando abaixo para expandir o sistema de arquivos:
 
 ```bash
-resize2fs /dev/sda2
+$ resize2fs /dev/sda2
 ```
 
 ---
@@ -107,5 +106,5 @@ resize2fs /dev/sda2
 Após esses passos, a VM estará com o disco expandido de 30GB para 50GB **sem precisar reiniciar**. Você pode confirmar com:
 
 ```bash
-df -h
+$ df -hT
 ```
