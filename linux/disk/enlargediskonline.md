@@ -39,7 +39,7 @@ Expandir o disco da VM de **30GB para 50GB** com a máquina ligada, sem causar i
 - Acesso root ou permissões com `sudo`
 - Ferramentas instaladas:
   - `parted`
-  - `resize2fs` (disponível no pacote `e2fsprogs`)
+  - `resize2fs` 
 
 ---
 
